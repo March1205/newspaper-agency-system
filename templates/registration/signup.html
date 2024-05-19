@@ -1,0 +1,42 @@
+{% extends "base_sections.html" %}
+{% load crispy_forms_filters %}
+{% load static %}
+
+{% block title %}Sign Up{% endblock title %}
+{% block body %} class="sign-up-illustration" {% endblock body %}
+
+{% block header %}
+{% include "includes/navigation.html" %}
+{% endblock header %}
+
+{% block content %}
+<section class="py-4" style="margin-top: -90px">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-xl-6 col-lg-7 col-md-9 d-flex flex-column mx-lg-0 mx-auto">
+        <div class="card shadow-lg border-0 rounded-lg">
+          <div class="card-header pb-3 text-left bg-primary text-white">
+            <h4 class="font-weight-bolder" style="color: white;">Sign Up</h4>
+            <p class="mb-0" style="color: white;">Enter your details to create an account</p>
+          </div>
+          <div class="card-body">
+            <form method="post" role="form">
+              {% csrf_token %}
+              {{ form|crispy }}
+              <div class="text-center">
+                <button type="submit" class="btn btn-lg bg-gradient-primary btn-lg w-100 mt-3 mb-0">Sign Up</button>
+              </div>
+            </form>
+          </div>
+          <div class="card-footer text-center pt-2 px-lg-2 px-1">
+            <p class="mb-3 text-sm mx-auto">
+              Already have an account?
+              <a href="{% url 'login' %}" class="text-primary text-gradient font-weight-bold">Sign In</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock content %}
