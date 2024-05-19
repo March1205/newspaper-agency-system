@@ -1,0 +1,57 @@
+{% extends "base_sections.html" %}
+{% load crispy_forms_filters %}
+{% load query_transform %}
+
+{% block content %}
+  <section class="py-4" style="margin-top: -65px">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h1 class="mb-4">List of Newspapers</h1>
+        </div>
+      </div>
+      <div class="row justify-content-center mb-4">
+        <div class="col-lg-8">
+          <form method="get" action="" class="form-inline justify-content-center">
+            {{ search_form|crispy }}
+          </form>
+        </div>
+      </div>
+      <div class="row justify-content-center mb-4">
+        <div class="col-lg-8 text-center">
+          <a href="{% url 'news:newspaper-create' %}" class="btn btn-primary btn-lg mb-4">Create New Newspaper</a>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          {% if newspaper_list %}
+            <div class="card shadow-sm">
+              <div class="card-header">
+                <h2 class="mb-0">Newspapers</h2>
+              </div>
+              <div class="card-body">
+                <div class="list-group">
+                  {% for newspaper in newspaper_list %}
+                    <div class="list-group-item list-group-item-action d-flex align-items-center">
+                      <div class="icon icon-shape rounded-circle bg-gradient-primary shadow text-center me-3">
+                        <i class="fas fa-newspaper opacity-10"></i>
+                      </div>
+                      <div class="flex-grow-1">
+                        <h5 class="mb-1">{{ newspaper.title }}</h5>
+                        <p class="mb-1">{{ newspaper.topic }}, {{ newspaper.published_date }}</p>
+                        <a href="{% url 'news:newspaper-detail' pk=newspaper.id %}" class="text-primary">Read more</a>
+                      </div>
+                    </div>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+            {% include 'includes/pagination.html' %}
+          {% else %}
+            <p class="text-center">There are no newspapers in the agency.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

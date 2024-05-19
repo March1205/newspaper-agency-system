@@ -1,0 +1,42 @@
+  {% load static %}
+  
+<!-- Core JS Files -->
+<script src="{% static 'js/core/popper.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/core/bootstrap.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'js/plugins/perfect-scrollbar.min.js' %}"></script>
+
+<!-- Plugins -->
+<script src="{% static 'js/plugins/parallax.min.js' %}"></script>
+<script src="{% static 'js/plugins/choices.min.js' %}"></script>
+<script src="{% static 'js/plugins/countup.min.js' %}"></script>
+<script src="{% static 'js/plugins/prism.min.js' %}"></script>
+<script src="{% static 'js/plugins/flatpickr.min.js' %}"></script>
+<script src="{% static 'js/plugins/moment.min.js' %}"></script>
+<script src="{% static 'js/plugins/rellax.min.js' %}"></script>
+<script src="{% static 'js/plugins/tilt.min.js' %}"></script>
+<script src="{% static 'js/plugins/typedjs.js' %}"></script>
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDTTfWur0PDbZWPr7Pmq8K3jiDp0_xUziI"></script>
+
+<script src="{% static 'js/soft-design-system.min.js' %}" type="text/javascript"></script>
+  
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const readMore = document.getElementById('read-more');
+      const readLess = document.getElementById('read-less');
+      const shortContent = document.getElementById('short-content');
+      const fullContent = document.getElementById('full-content');
+
+      readMore.addEventListener('click', function(event) {
+        event.preventDefault();
+        shortContent.style.display = 'none';
+        fullContent.style.display = 'block';
+      });
+
+      readLess.addEventListener('click', function(event) {
+        event.preventDefault();
+        shortContent.style.display = 'block';
+        fullContent.style.display = 'none';
+      });
+    });
+  </script>  

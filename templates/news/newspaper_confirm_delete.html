@@ -1,0 +1,20 @@
+{% extends "base_sections.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <section class="py-4" style="margin-top: -65px">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h1 class="mb-4">Delete Newspaper?</h1>
+          <form action="" method="post" class="form-inline">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Yes" class="btn btn-danger ml-2">
+            <a href="{% url 'news:newspaper-detail' pk=newspaper.id %}" class="btn btn-secondary ml-2">Cancel</a>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
