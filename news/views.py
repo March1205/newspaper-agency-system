@@ -75,7 +75,7 @@ class RedactorCreateView(LoginRequiredMixin, generic.CreateView):
 
 class RedactorUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Redactor
-    fields = ("username", "first_name", "last_name", "years_of_experience")
+    form_class = RedactorCreationForm
     success_url = reverse_lazy("news:redactor-list")
 
 
