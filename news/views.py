@@ -1,5 +1,7 @@
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.views import LoginView
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse_lazy
@@ -11,7 +13,7 @@ from .forms import (
     TopicSearchForm,
     NewspaperSearchForm,
     RedactorCreationForm,
-    NewspaperForm
+    NewspaperForm, UserLoginForm
 )
 from .models import Redactor, Topic, Newspaper
 from .utils import add_alert
@@ -232,3 +234,29 @@ class RemoveRedactorView(LoginRequiredMixin, generic.View):
         newspaper = get_object_or_404(Newspaper, pk=newspaper_id)
         newspaper.publishers.remove(request.user)
         return redirect("news:newspaper-detail", pk=newspaper_id)
+
+
+class SignupView(generic.CreateView):
+    form_class = RedactorCreationForm
+    success_url = reverse_lazy("news:index")
+    template_name = "registration/signup.html"
+
+
+class UserLoginView(LoginView):
+    template_name = 'registration/login.html'
+    form_class = UserLoginForm
+
+
+def logout_view(request):
+    logout(request)
+    return redirect("/accounts/login")
+
+
+def get_custom_alerts(request):
+    alerts = request.session.pop("custom_alerts", [])
+    return alerts
+
+
+def your_view(request):
+    alerts = get_custom_alerts(request)
+    return render(request, "alerts.html", {"alerts": alerts})
