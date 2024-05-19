@@ -1,0 +1,64 @@
+{% extends "base_sections.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <section class="py-4" style="margin-top: -65px">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h1 class="mb-4">Redactors List</h1>
+        </div>
+      </div>
+      <div class="row justify-content-center mb-4">
+        <div class="col-lg-8">
+          <form method="get" action="" class="form-inline justify-content-center">
+            {{ search_form|crispy }}
+          </form>
+        </div>
+      </div>
+      <div class="row justify-content-center mb-4">
+        <div class="col-lg-8 text-center">
+          <a href="{% url 'news:redactor-create' %}" class="btn btn-primary btn-lg">Create New Redactor</a>
+        </div>
+      </div>
+      <div class="row justify-content-center">
+        <div class="col-lg-10">
+          {% if redactor_list %}
+            <div class="card shadow-sm">
+              <div class="card-header">
+                <h2 class="mb-0">Redactors</h2>
+              </div>
+              <div class="card-body">
+                <table class="table table-hover">
+                  <thead>
+                    <tr>
+                      <th>ID</th>
+                      <th>Username</th>
+                      <th>First Name</th>
+                      <th>Last Name</th>
+                      <th>Years of Experience</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {% for redactor in redactor_list %}
+                      <tr>
+                        <td>{{ redactor.id }}</td>
+                        <td><a href="{{ redactor.get_absolute_url }}">{{ redactor.username }}{% if user == redactor %} (Me){% endif %}</a></td>
+                        <td>{{ redactor.first_name }}</td>
+                        <td>{{ redactor.last_name }}</td>
+                        <td>{{ redactor.years_of_experience }}</td>
+                      </tr>
+                    {% endfor %}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+            {% include 'includes/pagination.html' %}
+          {% else %}
+            <p>There are no redactors in the agency.</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

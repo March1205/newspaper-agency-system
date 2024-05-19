@@ -1,0 +1,19 @@
+{% extends "base_sections.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <section class="py-4" style="margin-top: -65px">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <h1 class="mb-4">{{ object|yesno:"Update,Create" }} Redactor</h1>
+          <form action="" method="post" novalidate class="form-horizontal">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Submit" class="btn btn-primary mt-3">
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}
