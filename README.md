@@ -39,3 +39,12 @@ On macOS/Linux:
 - Topic Management: Create and manage topics.
 - Redactor Management: Add, edit, and remove redactors.
 - Newspaper Management: Organize articles into newspapers, assign topics and publishers to newspapers.
+
+
+### Access the Live Website
+
+You can access the live website here: [Newspaper Agency System](https://newspaper-agency-system.onrender.com)
+
+Login with the following credentials:
+- **Username:** user
+- **Password:** user12345
