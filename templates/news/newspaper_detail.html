@@ -1,0 +1,82 @@
+{% extends "base_sections.html" %}
+{% load crispy_forms_filters %}
+
+
+{% block content %}
+  <section class="py-4" style="margin-top: -65px">
+    <div class="container">
+      <div class="row justify-content-start">
+        <div class="col-lg-12">
+          <h1 class="mb-2">{{ newspaper.title }}</h1>
+          <div class="mb-4">
+            <a href="{% url 'news:newspaper-delete' pk=newspaper.id %}" class="btn btn-danger link-to-page mr-2">
+              Delete
+            </a>
+            <a href="{% url 'news:newspaper-update' pk=newspaper.id %}" class="btn btn-secondary link-to-page">
+              Update
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+  <section class="py-4">
+    <div class="container">
+      <div class="row justify-content-start">
+        <div class="col-lg-12">
+          <div class="info-horizontal d-flex align-items-start">
+            <div class="icon icon-shape rounded-circle bg-gradient-primary shadow text-center me-3">
+              <i class="fas fa-file opacity-10"></i>
+            </div>
+            <div class="description">
+              <p class="mb-0"><strong>Topic:</strong> {{ newspaper.topic.name }}</p>
+              <p class="mb-0"><strong>Published Date:</strong> {{ newspaper.published_date }}</p>
+            </div>
+          </div>
+
+          <div class="row mt-4">
+            <div class="col-lg-6">
+              <h2>Content</h2>
+              <div class="newspaper-content p-4" style="border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+                <div id="short-content">
+                  {{ newspaper.content|truncatewords:6 }}
+                  <a href="#" id="read-more">Read more</a>
+                </div>
+                <div id="full-content" style="display: none;">
+                  {{ newspaper.content|safe }}
+                  <a href="#" id="read-less">Read less</a>
+                </div>
+              </div>
+            </div>
+            
+            <div class="col-lg-6">
+              <h2>Redactors</h2>
+              <div class="newspaper-content p-4" style="border: 1px solid #ddd; border-radius: 8px; background-color: #f9f9f9;">
+                <ul>
+                  {% for redactor in newspaper.publishers.all %}
+                    <li>{{ redactor.username }} ({{ redactor.first_name }} {{ redactor.last_name }})</li>
+                  {% endfor %}
+                </ul>
+                {% if user not in newspaper.publishers.all %}
+                  <form action="{% url 'news:assign-redactor' %}" method="post" class="form-inline mt-3">
+                    {% csrf_token %}
+                    <input type="hidden" name="newspaper_id" value="{{ newspaper.id }}">
+                    <input type="submit" value="Assign me to this newspaper" class="btn btn-success">
+                  </form>
+                {% else %}
+                  <form action="{% url 'news:remove-redactor' %}" method="post" class="form-inline mt-3">
+                    {% csrf_token %}
+                    <input type="hidden" name="newspaper_id" value="{{ newspaper.id }}">
+                    <input type="submit" value="Delete me from this newspaper" class="btn btn-danger">
+                  </form>
+                {% endif %}
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

@@ -1,0 +1,67 @@
+{% extends "base_sections.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+<section class="py-4" style="margin-top: -65px">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">
+        <h1 class="mb-4">Topic List</h1>
+      </div>
+    </div>
+    <div class="row justify-content-center mb-4">
+      <div class="col-lg-8">
+        <form method="get" action="" class="form-inline justify-content-center">
+          {{ search_form|crispy }}
+        </form>
+      </div>
+    </div>
+   <div class="row justify-content-center mb-4">
+        <div class="col-lg-8 text-center">
+          <a href="{% url 'news:topic-create' %}" class="btn btn-primary btn-lg">Create New Topic</a>
+        </div>
+      </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-10">
+        {% if topic_list %}
+          <div class="card shadow-sm">
+            <div class="card-header">
+              <h2 class="mb-0">Topics</h2>
+            </div>
+            <div class="card-body">
+              <table class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th class="text-center">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {% for topic in topic_list %}
+                    <tr>
+                      <td>{{ topic.id }}</td>
+                      <td>{{ topic.name }}</td>
+                      <td class="text-center">
+                        <a href="{% url 'news:topic-update' pk=topic.id %}" class="btn btn-warning btn-sm">
+                          <i class="fas fa-edit"></i> Update
+                        </a>
+                        <a href="{% url 'news:topic-delete' pk=topic.id %}" class="btn btn-danger btn-sm">
+                          <i class="fas fa-trash-alt"></i> Delete
+                        </a>
+                      </td>
+                    </tr>
+                  {% endfor %}
+                </tbody>
+              </table>
+            </div>
+          </div>
+          {% include 'includes/pagination.html' %}
+        {% else %}
+          <p>There are no topics in the service.</p>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</section>
+{% endblock %}

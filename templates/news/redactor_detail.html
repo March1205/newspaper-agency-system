@@ -1,0 +1,42 @@
+{% extends "base_sections.html" %}
+{% load crispy_forms_filters %}
+
+{% block content %}
+  <section class="py-4" style="margin-top: -65px">
+    <div class="container">
+      <div class="row justify-content-start">
+        <div class="col-lg-12">
+          <h1 class="mb-4">Username: {{ redactor.username }}</h1>
+          <div class="mb-4">
+            <a href="{% url 'news:redactor-delete' pk=redactor.pk %}" class="btn btn-danger mr-2">
+              Delete Redactor
+            </a>
+            <a href="{% url 'news:redactor-update' pk=redactor.pk %}" class="btn btn-secondary">
+              Update Info
+            </a>
+          </div>
+          <p><strong>First name:</strong> {{ redactor.first_name }}</p>
+          <p><strong>Last name:</strong> {{ redactor.last_name }}</p>
+          <p><strong>Years of experience:</strong> {{ redactor.years_of_experience }}</p>
+        </div>
+      </div>
+
+       <div class="row justify-content-start mt-4">
+        <div class="col-lg-12">
+          <h4>Newspapers</h4>
+          <div class="newspaper-list">
+            {% for newspaper in redactor.newspapers.all %}
+              <div class="newspaper-item p-3 mb-3" style="border: 1px solid #ddd; border-radius: 8px;">
+                <p><strong>Title:</strong> <a href="{% url 'news:newspaper-detail' pk=newspaper.id %}">{{ newspaper.title }}</a></p>
+                <p><strong>Topic:</strong> {{ newspaper.topic.name }}</p>
+                <p class="text-muted"><strong>Id:</strong> {{ newspaper.id }}</p>
+              </div>
+            {% empty %}
+              <p>No newspapers!</p>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endblock %}

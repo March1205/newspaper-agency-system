@@ -1,0 +1,40 @@
+{% load query_transform %}
+{% if is_paginated %}
+  <section class="py-1">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-4 mx-auto">
+          <ul class="pagination pagination-primary m-2">
+            {% if page_obj.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?{% query_transform request page=page_obj.previous_page_number %}" aria-label="Previous">
+                  <span aria-hidden="true"><i class="fa fa-angle-double-left" aria-hidden="true"></i></span>
+                </a>
+              </li>
+            {% endif %}
+
+            {% for num in paginator.page_range %}
+              {% if page_obj.number == num %}
+                <li class="page-item active">
+                  <a class="page-link" href="javascript:;">{{ num }}</a>
+                </li>
+              {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                <li class="page-item">
+                  <a class="page-link" href="?{% query_transform request page=num %}">{{ num }}</a>
+                </li>
+              {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?{% query_transform request page=page_obj.next_page_number %}" aria-label="Next">
+                  <span aria-hidden="true"><i class="fa fa-angle-double-right" aria-hidden="true"></i></span>
+                </a>
+              </li>
+            {% endif %}
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+{% endif %}
