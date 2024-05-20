@@ -11,28 +11,28 @@ This project is designed to manage the operations of a newspaper agency, includi
 
 ### Installing
 - Clone the repository:
-git clone https://github.com/March1205/newspaper-agency-system.git
+`git clone https://github.com/March1205/newspaper-agency-system.git`
 
 - Navigate to the project directory:
-cd newspaper-agency-system
+`cd newspaper-agency-system`
 
 - Create a virtual environment:
-python -m venv venv
+`python -m venv venv`
 - Activate the virtual environment:
 
 On Windows:
-venv\Scripts\activate
+`venv\Scripts\activate`
 
 On macOS/Linux:
-source venv/bin/activate
+`source venv/bin/activate`
 
 - Install the required dependencies:
-pip install -r requirements.txt
+`pip install -r requirements.txt`
 
 ### Running the Project
 
 - To run the project, execute the following command:
-python manage.py runserver
+`python manage.py runserver`
 
 ### This project includes the following features:
 
